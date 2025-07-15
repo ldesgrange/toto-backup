@@ -1,0 +1,120 @@
+[project]
+name = "toto-backup"
+version = "0.1.0"
+description = "Command line tool to backup your Yoto cards."
+keywords = ['yoto', "backup"]
+classifiers = [
+    # https://pypi.org/classifiers/
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+]
+authors = [
+    { name = "Laurent Desgrange", email = "laurent+toto-backup-d^_^b@desgrange.net" },
+]
+dependencies = [
+    "beautifulsoup4>=4.13.4",
+    "click>=8.2.1",
+    "mutagen>=1.47.0",
+    "pathvalidate>=3.3.1",
+    "puremagic>=1.30",
+    "requests>=2.32.4",
+    "structlog>=25.4.0",
+]
+requires-python = ">=3.13,<3.14"
+readme = "README.md"
+license = "MPL-2.0"
+license-files = ["LICENSE*"]
+
+[project.urls]
+homepage = "https://github.com/ldesgrange/toto-backup"
+repository = "https://github.com/ldesgrange/toto-backup"
+
+[project.scripts]
+toto_backup = "toto_backup.toto_backup:main"
+
+[dependency-groups]
+dev = [
+    "licenseheaders>=0.8.8",
+    "mypy>=1.17.0",
+    "pip-audit>=2.9.0",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "pytest-mock>=3.14.1",
+    "responses>=0.25.7",
+    "ruff>=0.12.3",
+    "types-requests>=2.32.4.20250611",
+    "yq>=3.4.3",
+]
+
+[build-system]
+requires = [
+    "pdm-backend>=2.4.5",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+plugins = []
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-branch"
+testpaths = [
+    "tests/unit",
+    "tests/integration",
+]
+# Show logs while running tests.
+#log_cli = 1
+
+[tool.coverage.run]
+branch = true
+source_dirs = [
+    "src",
+]
+
+[tool.mypy]
+mypy_path = "src"
+
+[tool.ruff]
+fix = true
+show-fixes = true
+line-length = 120
+indent-width = 4
+# Assume Python 3.13
+target-version = "py313"
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint]
+# See: https://docs.astral.sh/ruff/rules/
+select = [
+    "F", # pyflakes
+    "E", # pycodestyle
+    "N", # pep8-naming
+    "W", # pycodestyle
+    "I002", # isort / missing-required-import
+    "A", # flake8-builtins
+    "B", # flake8-bugbear
+    "COM", # flake8-commas
+    "YTT", # flake8-2020
+    "ASYNC", # flake8-async
+    "INT", # flake8-gettext
+    "PIE", # flake8-pie
+    "Q", # flake8-quotes
+    "SLOT", # flake8-slots
+    "PL", # pylint
+    "UP", # pyupgrade
+    "RUF", # ruff specific rules
+    "TRY", # tryceratops
+]
+ignore = [
+    "COM812", # Already handled by the formatter, see: https://docs.astral.sh/ruff/rules/missing-trailing-comma/
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"

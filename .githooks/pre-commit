@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+ruff format --exit-non-zero-on-format src tests
+ruff check --exit-non-zero-on-fix src tests
+mypy src
+pip-audit
+
+AUTHOR=$(tomlq .project.authors[0].name pyproject.toml)
+PROJECT=$(tomlq .project.name pyproject.toml)
+REPO=$(tomlq .project.urls.repository pyproject.toml)
+licenseheaders --dir src --current-year --owner "$AUTHOR" --projname "$PROJECT" --projurl "$REPO" --tmpl ./.licenseheader.j2 --ext .py
+licenseheaders --dir tests --current-year --owner "$AUTHOR" --projname "$PROJECT" --projurl "$REPO" --tmpl ./.licenseheader.j2 --ext .py

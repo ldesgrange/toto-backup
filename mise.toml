@@ -1,0 +1,16 @@
+[settings]
+experimental = true # So hooks are run.
+
+[tools]
+pdm = "2.25.4"
+python = "3.13.5"
+
+[hooks]
+postinstall = [
+    "git config core.hooksPath .githooks",
+    "pdm install --plugins",
+    "pdm install"
+]
+
+[env]
+_.python.venv = { path = ".venv", create = true }
