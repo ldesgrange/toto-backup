@@ -37,4 +37,4 @@ jobs:
           pdm install -G dev
 
       - name: Run tests
-        run: pytest
+        run: pdm run pytest
