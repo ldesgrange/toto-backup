@@ -33,7 +33,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm venv create
+          pdm venv create --force
           pdm install -G dev
 
       - name: Run tests
