@@ -13,6 +13,7 @@
 #
 import logging
 import os
+import platform
 from pathlib import Path
 
 import pytest
@@ -94,8 +95,10 @@ def test_main(caplog: LogCaptureFixture, setup_teardown):
 
     runner = CliRunner()
     with runner.isolated_filesystem() as tmp_dir:
-        # Resolve the real path.
-        real_tmp_dir = os.path.realpath(tmp_dir)
+        expected_tmp_dir = tmp_dir
+        # Resolve the real path on macos.
+        if platform.system() == 'Darwin':
+            expected_tmp_dir = os.path.realpath(tmp_dir)
         result = runner.invoke(main, ['https://example.url/xxx'])
         assert result.exit_code == 0
         assert result.output == (
@@ -104,17 +107,17 @@ def test_main(caplog: LogCaptureFixture, setup_teardown):
             'Creating card directory…\n'
             'Downloading card cover…\n'
             'Downloading tracks…\n'
-            f'Track 1/2 successfully downloaded to {real_tmp_dir}{os.sep}Author Name - The Card Title{os.sep}'
+            f'Track 1/2 successfully downloaded to {expected_tmp_dir}{os.sep}Author Name - The Card Title{os.sep}'
             '1-1_Chapter 1 - Introduction.m4a\n'
-            f'Track 2/2 successfully downloaded to {real_tmp_dir}{os.sep}Author Name - The Card Title{os.sep}'
+            f'Track 2/2 successfully downloaded to {expected_tmp_dir}{os.sep}Author Name - The Card Title{os.sep}'
             '1-2_Chapter 2.m4a\n'
             'Card backup completed, 2 tracks backed up successfully, 0 failed.\n'
         )
-        assert (Path(real_tmp_dir) / 'Author Name - The Card Title' / 'cover.png').exists()
-        assert (Path(real_tmp_dir) / 'Author Name - The Card Title' / '1-1_Chapter 1 - Introduction.m4a').exists()
-        assert (Path(real_tmp_dir) / 'Author Name - The Card Title' / '1-1_Chapter 1 - Introduction.png').exists()
-        assert (Path(real_tmp_dir) / 'Author Name - The Card Title' / '1-2_Chapter 2.m4a').exists()
-        assert (Path(real_tmp_dir) / 'Author Name - The Card Title' / '1-2_Chapter 2.png').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / 'cover.png').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-1_Chapter 1 - Introduction.m4a').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-1_Chapter 1 - Introduction.png').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-2_Chapter 2.m4a').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-2_Chapter 2.png').exists()
 
 
 def generate_card_page_body() -> str:
