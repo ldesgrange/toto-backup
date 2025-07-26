@@ -26,13 +26,12 @@ jobs:
 
       - name: Build
         run: |
-          pdm build
+          pdm run shiv --output-file toto-backup.pyz --console-script toto_backup .
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/*.tar.gz
-            dist/*.whl
+            *.pyz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

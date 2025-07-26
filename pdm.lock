@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:764b4883a9a9c27817067207eb312d75ca8a0449136701d096cc37129e234465"
+content_hash = "sha256:ea40f25ddf4d567ca8fa713bc39354b7535be04e8a9eec41dbd469a6116611e0"
 
 [[metadata.targets]]
 requires_python = ">=3.10,<3.14"
@@ -156,7 +156,7 @@ name = "click"
 version = "8.2.1"
 requires_python = ">=3.10"
 summary = "Composable command line interface toolkit"
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "colorama; platform_system == \"Windows\"",
 ]
@@ -968,6 +968,34 @@ files = [
     {file = "ruff-0.12.5-py3-none-win_amd64.whl", hash = "sha256:ae0d90cf5f49466c954991b9d8b953bd093c32c27608e409ae3564c63c5306a5"},
     {file = "ruff-0.12.5-py3-none-win_arm64.whl", hash = "sha256:48cdbfc633de2c5c37d9f090ba3b352d1576b0015bfc3bc98eaf230275b7e805"},
     {file = "ruff-0.12.5.tar.gz", hash = "sha256:b209db6102b66f13625940b7f8c7d0f18e20039bb7f6101fbdac935c9612057e"},
+]
+
+[[package]]
+name = "setuptools"
+version = "80.9.0"
+requires_python = ">=3.9"
+summary = "Easily download, build, install, upgrade, and uninstall Python packages"
+groups = ["dev"]
+files = [
+    {file = "setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922"},
+    {file = "setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"},
+]
+
+[[package]]
+name = "shiv"
+version = "1.0.8"
+requires_python = ">=3.6"
+summary = "A command line utility for building fully self contained Python zipapps."
+groups = ["dev"]
+dependencies = [
+    "click!=7.0,>=6.7",
+    "importlib-resources; python_version < \"3.7\"",
+    "pip>=9.0.3",
+    "setuptools",
+]
+files = [
+    {file = "shiv-1.0.8-py2.py3-none-any.whl", hash = "sha256:a60e4b05a2d2f8b820d567b1d89ee59af731759771c32c282d03c4ceae6aba24"},
+    {file = "shiv-1.0.8.tar.gz", hash = "sha256:2a68d69e98ce81cb5b8fdafbfc1e27efa93e6d89ca14bfae33482e4176f561d6"},
 ]
 
 [[package]]

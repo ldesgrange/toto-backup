@@ -42,6 +42,7 @@ dev = [
     "pytest-mock>=3.14.1",
     "responses>=0.25.7",
     "ruff>=0.12.3",
+    "shiv>=1.0.8",
     "types-requests>=2.32.4.20250611",
     "yq>=3.4.3",
 ]
