@@ -1,0 +1,98 @@
+name: Run Checks
+
+on:
+  push:
+    tags: [ "*" ]
+    branches: [ "master" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: 3.13
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          pdm install -G dev
+
+      - name: Ruff format
+        run: pdm run ruff format --check src tests
+
+      - name: Ruff check
+        run: pdm run ruff check --no-fix src tests
+
+      - name: Mypy
+        run: pdm run mypy src
+
+      - name: Pip audit
+        run: pdm run pip-audit
+
+  Test:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.10", 3.11, 3.12, 3.13 ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: false
+
+      - name: Install dependencies
+        run: |
+          pdm install -G dev
+
+      - name: Run tests
+        run: pdm run pytest
+
+  Build:
+    needs:
+      - Check
+      - Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: 3.13
+          cache: true
+
+      - name: Install dependencies
+        run: |
+          pdm install -G dev
+
+      - name: Build
+        run: |
+          pdm build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-artifacts
+          path: dist/**.whl
