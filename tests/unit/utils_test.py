@@ -12,6 +12,7 @@
 # at https://mozilla.org/MPL/2.0/.
 #
 import logging
+import os
 from pathlib import Path
 
 import click
@@ -152,17 +153,17 @@ def test_should_overwrite_directory_should_ask_user(caplog: LogCaptureFixture):
 
     @click.command()
     def create() -> None:
-        if should_overwrite_directory(Path('some/dir')):
+        if should_overwrite_directory(Path('some') / 'dir'):
             click.echo('Returned True')
         else:
             click.echo('Returned False')
 
     # Reject overwriting.
     result = runner.invoke(create, input='n')
-    assert result.output == 'Directory “some/dir” already exists, overwrite? [y/N]: n\nReturned False\n'
+    assert result.output == f'Directory “some{os.sep}dir” already exists, overwrite? [y/N]: n\nReturned False\n'
 
     # Accept overwriting.
     result = runner.invoke(create, input='y')
-    assert result.output == 'Directory “some/dir” already exists, overwrite? [y/N]: y\nReturned True\n'
+    assert result.output == f'Directory “some{os.sep}dir” already exists, overwrite? [y/N]: y\nReturned True\n'
 
     caplog.set_level(logging.NOTSET)
