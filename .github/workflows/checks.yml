@@ -39,4 +39,4 @@ jobs:
         run: pdm run mypy src
 
       - name: Pip audit
-        run: pdm run pip audit
+        run: pdm run pip-audit
