@@ -8,7 +8,8 @@ Simple tool to back up your Yoto cards.
   You can download an NFC reader application on your smartphone to do that:
   - Android: [NFC Tools](https://play.google.com/store/apps/details?id=com.wakdev.wdnfc)
   - iOS: [NFC Tools](https://apps.apple.com/app/nfc-tools/id1252962749)
-- In a terminal, run: `toto-backup URL` where `URL` is replaced with the URL present on your Yoto card.
+- Download the latest `toto-backup.pyz` version from https://github.com/ldesgrange/toto-backup/releases.
+- In a terminal, run: `python toto-backup.pyz URL` where `URL` is replaced with the URL present on your Yoto card.
   That will create a folder with the tracks, icons and cover art in it.
 
 ## Development environment
@@ -27,3 +28,11 @@ Simple tool to back up your Yoto cards.
 - Check for known vulnerabilities: `pip-audit`
 - Run the app: `pdm run toto_backup URL`
 - Build the app: `pdm build`
+- Generate a zipapp: `shiv --output-file toto-backup.pyz --console-script toto_backup .`
+
+## Release
+
+- Add tag:
+  `git tag -a v0.1.0 -m "Release version 0.1.0"`
+- Push tag:
+  `git push origin v0.1.0`
