@@ -32,7 +32,7 @@ Simple tool to back up your Yoto cards.
 
 ## Release
 
-- Add tag:
-  `git tag -a v0.1.0 -m "Release version 0.1.0"`
+- Update version in `pyproject.toml`.
+- Add tag `git tag -a vX.Y.Z -m "Release version X.Y.Z"`
 - Push tag:
-  `git push origin v0.1.0`
+  `git push origin vX.Y.Z`
