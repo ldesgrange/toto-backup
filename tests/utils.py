@@ -28,6 +28,11 @@ def get_dummy_m4a_file() -> Path:
     return get_project_root() / 'tests/data/empty.m4a'
 
 
+def get_dummy_mp3_file() -> Path:
+    # “empty.mp3” was generated using: `ffmpeg -f lavfi -t 1 -i anullsrc -c:a mp3 -shortest empty.mp3`
+    return get_project_root() / 'tests/data/empty.mp3'
+
+
 def get_dummy_png_file() -> Path:
     # “empty.png” was generated using: `convert -size 16x16 xc:white empty.png`
     return get_project_root() / 'tests/data/empty.png'
