@@ -2,6 +2,8 @@
 
 Simple tool to back up your Yoto cards.
 
+![Github Actions](https://github.com/ldesgrange/toto-backup/workflows/Build/badge.svg)
+
 ## Usage
 
 - Read your Yoto card and copy the associated URL (it should look like `https://yoto.io/XXXXX?ABCDEFGHIJKL=MNOPQRSTUVWXY`).
