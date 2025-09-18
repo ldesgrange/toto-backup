@@ -108,16 +108,16 @@ def test_main(caplog: LogCaptureFixture, setup_teardown):
             'Downloading card cover…\n'
             'Downloading tracks…\n'
             f'Track 1/2 successfully downloaded to {expected_tmp_dir}{os.sep}Author Name - The Card Title{os.sep}'
-            '1-1_Chapter 1 - Introduction.m4a\n'
+            '1-01_Chapter 1 - Introduction.m4a\n'
             f'Track 2/2 successfully downloaded to {expected_tmp_dir}{os.sep}Author Name - The Card Title{os.sep}'
-            '1-2_Chapter 2.m4a\n'
+            '1-02_Chapter 2.m4a\n'
             'Card backup completed, 2 tracks backed up successfully, 0 failed.\n'
         )
         assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / 'cover.png').exists()
-        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-1_Chapter 1 - Introduction.m4a').exists()
-        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-1_Chapter 1 - Introduction.png').exists()
-        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-2_Chapter 2.m4a').exists()
-        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-2_Chapter 2.png').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-01_Chapter 1 - Introduction.m4a').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-01_Chapter 1 - Introduction.png').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-02_Chapter 2.m4a').exists()
+        assert (Path(expected_tmp_dir) / 'Author Name - The Card Title' / '1-02_Chapter 2.png').exists()
 
 
 def generate_card_page_body() -> str:

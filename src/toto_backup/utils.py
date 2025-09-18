@@ -150,6 +150,5 @@ def format_base_filename(
     disc_number: int, disc_total: int, track_number: int, track_total: int, track_name: str
 ) -> str:
     formatted_disc_number = str(disc_number).zfill(len(str(disc_total)))
-    formatted_track_number = str(track_number).zfill(len(str(track_total)))
-    base_filename = f'{formatted_disc_number}-{formatted_track_number}_{track_name}'
-    return base_filename
+    formatted_track_number = str(track_number).zfill(max([2, len(str(track_total))]))
+    return f'{formatted_disc_number}-{formatted_track_number}_{track_name}'
