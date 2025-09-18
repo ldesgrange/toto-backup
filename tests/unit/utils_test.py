@@ -31,6 +31,7 @@ from toto_backup.utils import (
     find_data,
     should_overwrite_directory,
     similar_strings,
+    format_base_filename,
 )
 from utils import get_dummy_m4a_file, get_dummy_file
 
@@ -184,3 +185,9 @@ def test_similar_strings():
     assert similar_strings('“foo”', '"foo"') is True
     assert similar_strings('« foo »', '" foo "') is True  # noqa: RUF001
     assert similar_strings('« foo »', '“ foo ”') is True  # noqa: RUF001
+
+
+def test_format_base_filename():
+    assert format_base_filename(1, 1, 1, 1, 'xxx') == '1-01_xxx'
+    assert format_base_filename(1, 10, 1, 10, 'xxx') == '01-01_xxx'
+    assert format_base_filename(1, 100, 1, 100, 'xxx') == '001-001_xxx'
