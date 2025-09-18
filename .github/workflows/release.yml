@@ -28,10 +28,13 @@ jobs:
         run: |
           pdm run shiv --output-file toto-backup.pyz --console-script toto_backup .
 
-      - name: Release
+      - name: Create draft release
         uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
         with:
           files: |
             *.pyz
+          draft: true
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
