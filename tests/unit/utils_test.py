@@ -30,6 +30,7 @@ from toto_backup.utils import (
     fetch_page,
     find_data,
     should_overwrite_directory,
+    similar_strings,
 )
 from utils import get_dummy_m4a_file, get_dummy_file
 
@@ -167,3 +168,19 @@ def test_should_overwrite_directory_should_ask_user(caplog: LogCaptureFixture):
     assert result.output == f'Directory “some{os.sep}dir” already exists, overwrite? [y/N]: y\nReturned True\n'
 
     caplog.set_level(logging.NOTSET)
+
+
+def test_similar_strings():
+    assert similar_strings('foo', 'bar') is False
+
+    assert similar_strings('', '') is True
+    assert similar_strings('foo', 'FOO') is True
+    assert similar_strings('FoO', 'fOO') is True
+    assert similar_strings('café', 'cafe\u0301') is True
+    assert similar_strings('café', 'cafe') is True
+    assert similar_strings('ﬁ', 'fi') is True
+    assert similar_strings('straße', 'STRASSE') is True
+    assert similar_strings('‘foo’', "'foo'") is True  # noqa: RUF001
+    assert similar_strings('“foo”', '"foo"') is True
+    assert similar_strings('« foo »', '" foo "') is True  # noqa: RUF001
+    assert similar_strings('« foo »', '“ foo ”') is True  # noqa: RUF001

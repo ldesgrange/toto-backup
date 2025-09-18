@@ -23,7 +23,14 @@ from requests import HTTPError
 
 from toto_backup.card import parse_data, InvalidDataError, Card
 from toto_backup.tag import tag_track, Metadata
-from toto_backup.utils import download_content, get_extension, fetch_page, find_data, should_overwrite_directory
+from toto_backup.utils import (
+    download_content,
+    get_extension,
+    fetch_page,
+    find_data,
+    should_overwrite_directory,
+    similar_strings,
+)
 
 structlog.stdlib.recreate_defaults(log_level=logging.INFO)
 logger = structlog.stdlib.get_logger()
@@ -117,10 +124,10 @@ def download_tracks(card, card_directory, url) -> tuple[int, int]:
         for track in chapter.tracks:
             track_number += 1
 
-            if chapter.title != track.title:
-                track_name = f'{chapter.title} - {track.title}'
-            else:
+            if similar_strings(chapter.title, track.title):
                 track_name = chapter.title
+            else:
+                track_name = f'{chapter.title} - {track.title}'
 
             formatted_disc_number = str(disc_number).zfill(len(str(disc_total)))
             formatted_track_number = str(track_number).zfill(len(str(card.track_total)))

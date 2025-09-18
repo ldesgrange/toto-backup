@@ -12,6 +12,7 @@
 # at https://mozilla.org/MPL/2.0/.
 #
 import json
+import unicodedata
 from http import HTTPStatus
 from mimetypes import guess_extension
 from pathlib import Path
@@ -105,3 +106,41 @@ def should_overwrite_directory(directory: Path) -> bool:
     Prompt the user to confirm overwriting an existing directory.
     """
     return click.confirm(f'Directory “{directory}” already exists, overwrite?', default=False, abort=False)
+
+
+def similar_strings(str1: str, str2: str) -> bool:
+    return _normalize(str1) == _normalize(str2)
+
+
+PUNCTUATION_MAP = {
+    '‘': "'",  # noqa: RUF001
+    '’': "'",  # noqa: RUF001
+    '‚': "'",  # noqa: RUF001
+    '‛': "'",  # noqa: RUF001
+    '“': '"',
+    '”': '"',
+    '«': '"',
+    '»': '"',
+    '„': '"',
+    '‟': '"',
+    '‐': '-',  # noqa: RUF001
+    '-': '-',
+    '‒': '-',  # noqa: RUF001
+    '–': '-',  # noqa: RUF001
+    '—': '-',
+    '―': '-',
+    '…': '...',
+}
+
+
+def _normalize(value: str) -> str:
+    # Replace fancy punctuation with ASCII equivalents.
+    value = ''.join(PUNCTUATION_MAP.get(character, character) for character in value)
+    # Decompose accents (NFKD breaks é into e + diacritic).
+    value = unicodedata.normalize('NFKD', value)
+    # Remove diacritics (any "combining" mark).
+    value = ''.join(character for character in value if not unicodedata.combining(character))
+    # Normalize again to recombine (NFKC for compatibility chars like ligatures).
+    value = unicodedata.normalize('NFKC', value)
+    # Case-fold for case-insensitive comparison.
+    return value.casefold()
