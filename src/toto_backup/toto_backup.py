@@ -30,6 +30,7 @@ from toto_backup.utils import (
     find_data,
     should_overwrite_directory,
     similar_strings,
+    format_base_filename,
 )
 
 structlog.stdlib.recreate_defaults(log_level=logging.INFO)
@@ -129,9 +130,7 @@ def download_tracks(card, card_directory, url) -> tuple[int, int]:
             else:
                 track_name = f'{chapter.title} - {track.title}'
 
-            formatted_disc_number = str(disc_number).zfill(len(str(disc_total)))
-            formatted_track_number = str(track_number).zfill(len(str(card.track_total)))
-            base_filename = f'{formatted_disc_number}-{formatted_track_number}_{track_name}'
+            base_filename = format_base_filename(disc_number, disc_total, track_number, card.track_total, track_name)
 
             # Download icon.
             icon_file = download_and_move_content(chapter.icon_url, card_directory / base_filename)
