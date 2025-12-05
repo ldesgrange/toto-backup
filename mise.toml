@@ -2,9 +2,9 @@
 experimental = true # So hooks are run.
 
 [tools]
-pdm = "2.26.0"
+pdm = "2.26.2"
 pipx = "1.8.0"
-python = "3.13.7"
+python = "3.14.1"
 
 [hooks]
 postinstall = [
