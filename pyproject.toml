@@ -20,7 +20,7 @@ dependencies = [
     "requests>=2.32.4",
     "structlog>=25.4.0",
 ]
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.10,<3.15"
 readme = "README.md"
 license = "MPL-2.0"
 license-files = ["LICENSE*"]
@@ -80,8 +80,8 @@ fix = true
 show-fixes = true
 line-length = 120
 indent-width = 4
-# Assume Python 3.13
-target-version = "py313"
+# Assume Python 3.14
+target-version = "py314"
 
 [tool.ruff.format]
 quote-style = "single"

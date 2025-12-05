@@ -38,3 +38,8 @@ Simple tool to back up your Yoto cards.
 - Add tag `git tag -a vX.Y.Z -m "Release version X.Y.Z"`
 - Push tag:
   `git push origin vX.Y.Z`
+
+## Update
+
+- Update tools (`python`, `pdm`): `mise update --interactive --bump`
+- Update dependencies: `pdm update`

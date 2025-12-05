@@ -2,8 +2,8 @@
 experimental = true # So hooks are run.
 
 [tools]
-pdm = "2.25.9"
-python = "3.13.7"
+pdm = "2.26.2"
+python = "3.14.1"
 
 [hooks]
 postinstall = [
