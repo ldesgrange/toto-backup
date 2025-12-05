@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: pdm-project/setup-pdm@v4
         with:
@@ -51,7 +51,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: pdm-project/setup-pdm@v4
         with:
@@ -75,7 +75,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: pdm-project/setup-pdm@v4
         with:
@@ -91,7 +91,7 @@ jobs:
           pdm build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: dist-artifacts
           path: dist/**.whl
