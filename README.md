@@ -22,7 +22,7 @@ Compatibility:
 | MYO               |    ✔️     |                                                             |
 | Interactive story |    ✔️❌    | All tracks are backed-up, but no support for interactivity. |
 | Stream            |     ❓     | Not tested but unlikey to work.                             |
-| Yoto Original     |     ❌     | Returns 404, probbaly use undocumented API.                 |
+| Yoto Original     |     ❌     | Returns 404, probably use undocumented API.                 |
 
 ## Development environment
 
