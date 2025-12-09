@@ -32,6 +32,7 @@ from toto_backup.utils import (
     should_overwrite_directory,
     similar_strings,
     format_base_filename,
+    deep_get,
 )
 from utils import get_dummy_m4a_file, get_dummy_file
 
@@ -191,3 +192,11 @@ def test_format_base_filename():
     assert format_base_filename(1, 1, 1, 1, 'xxx') == '1-01_xxx'
     assert format_base_filename(1, 10, 1, 10, 'xxx') == '01-01_xxx'
     assert format_base_filename(1, 100, 1, 100, 'xxx') == '001-001_xxx'
+
+
+def test_deep_get():
+    assert deep_get({}, []) == {}
+    assert deep_get({}, ['foo', 'bar']) is None
+    assert deep_get({'foo': 'bar'}, ['foo']) == 'bar'
+    assert deep_get({'foo': {'bar': 'baz'}}, ['foo']) == {'bar': 'baz'}
+    assert deep_get({'foo': {'bar': 'baz'}}, ['foo', 'bar']) == 'baz'

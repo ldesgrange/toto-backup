@@ -152,3 +152,13 @@ def format_base_filename(
     formatted_disc_number = str(disc_number).zfill(len(str(disc_total)))
     formatted_track_number = str(track_number).zfill(max([2, len(str(track_total))]))
     return f'{formatted_disc_number}-{formatted_track_number}_{track_name}'
+
+
+def deep_get(tree: dict[str, Any], keys: list[str], default: Any = None) -> Any:
+    current = tree
+    for key in keys:
+        if isinstance(current, dict) and key in current:
+            current = current[key]
+        else:
+            return default
+    return current

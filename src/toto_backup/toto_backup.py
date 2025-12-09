@@ -15,6 +15,7 @@ import logging
 import shutil
 import sys
 from pathlib import Path
+from uuid import uuid4
 
 import click
 import structlog
@@ -63,7 +64,7 @@ def main(url: str) -> None:
     try:
         card = parse_data(data)
     except InvalidDataError:
-        logger.exception('Error while parsing data.')
+        logger.exception('Error while parsing data. This card may not be supported.')
         sys.exit(ERROR_INVALID_DATA)
     # Create a directory to download tracks into.
     card_directory = create_card_directory(Path.cwd(), card)
@@ -91,6 +92,8 @@ if __name__ == '__main__':
 def create_card_directory(parent_directory: Path, card: Card) -> Path | None:
     print('Creating card directory…')
     card_directory_name = ' - '.join(filter(None, [card.author, card.title]))
+    if not card_directory_name:
+        card_directory_name = f'card-backup-{uuid4()}'
     sanitized_card_directory_name = sanitize_filename(card_directory_name, validate_after_sanitize=True)
     card_directory = parent_directory / sanitized_card_directory_name
     if card_directory.exists():

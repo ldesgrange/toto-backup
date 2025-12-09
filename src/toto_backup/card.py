@@ -13,6 +13,8 @@
 #
 from typing import Any
 
+from toto_backup.utils import deep_get
+
 
 class DuplicateTrackError(Exception):
     def __init__(self, track_number: int, chapter_number: int):
@@ -136,28 +138,29 @@ def parse_data(data: Any) -> Card:
     :raises InvalidDataError: If the input data is of an invalid type or does not
         conform to the expected structure.
     """
-    try:
-        cover_url = parse_string(data['props']['pageProps']['card']['metadata']['cover']['imageL']) or ''
-        author = parse_string(data['props']['pageProps']['card']['metadata']['author']) or ''
-        title = parse_string(data['props']['pageProps']['card']['title']) or ''
-        card = Card(title, author, cover_url)
+    cover_url = parse_string(deep_get(data, ['props', 'pageProps', 'card', 'metadata', 'cover', 'imageL'])) or ''
+    author = parse_string(deep_get(data, ['props', 'pageProps', 'card', 'metadata', 'author'])) or ''
+    title = parse_string(deep_get(data, ['props', 'pageProps', 'card', 'title'])) or ''
+    card = Card(title, author, cover_url)
 
-        for chapter_index, chapter_data in enumerate(data['props']['pageProps']['card']['content']['chapters']):
-            chapter_number = chapter_index + 1
-            chapter_title = parse_string(chapter_data['title']) or ''
-            chapter_icon_url = parse_string(chapter_data['display']['icon16x16']) or ''
-            chapter = Chapter(chapter_number, chapter_title, chapter_icon_url)
+    chapters = deep_get(data, ['props', 'pageProps', 'card', 'content', 'chapters'], {})
+    for chapter_index, chapter_data in enumerate(chapters):
+        chapter_number = chapter_index + 1
+        chapter_title = parse_string(chapter_data['title']) or ''
+        chapter_icon_url = parse_string(chapter_data['display']['icon16x16']) or ''
+        chapter = Chapter(chapter_number, chapter_title, chapter_icon_url)
 
-            for track_index, track_data in enumerate(chapter_data['tracks']):
-                track_number = track_index + 1
-                track_title = parse_string(track_data['title']) or ''
-                track_url = parse_string(track_data['trackUrl']) or ''
-                track = Track(track_number, track_title, track_url)
-                chapter.add_track(track)
+        for track_index, track_data in enumerate(chapter_data['tracks']):
+            track_number = track_index + 1
+            track_title = parse_string(track_data['title']) or ''
+            track_url = parse_string(track_data['trackUrl']) or ''
+            track = Track(track_number, track_title, track_url)
+            chapter.add_track(track)
 
-            card.add_chapter(chapter)
-    except (TypeError, KeyError) as e:
-        raise InvalidDataError() from e
+        card.add_chapter(chapter)
+
+    if len(card.chapters) == 0:
+        raise InvalidDataError()
     else:
         return card
 

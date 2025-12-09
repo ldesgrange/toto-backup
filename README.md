@@ -16,13 +16,13 @@ Simple tool to back up your Yoto cards.
 
 Compatibility:
 
-| Card type         | Supported | Comments                                                   |
-|-------------------|:---------:|------------------------------------------------------------|
-| Regular story     |    ✔️     |                                                            |
-| Interactive story |    ✔️❌    | All tracks are backed-up, but no support for interactivity |
-| MYO               |     ❓     | Not tested yet.                                            |
-| Stream            |     ❓     | Not tested but unlikey to work.                            |
-| Yoto Original     |     ❌     | Returns 404, probbaly use undocumented API.                |
+| Card type         | Supported | Comments                                                    |
+|-------------------|:---------:|-------------------------------------------------------------|
+| Regular story     |    ✔️     |                                                             |
+| MYO               |    ✔️     |                                                             |
+| Interactive story |    ✔️❌    | All tracks are backed-up, but no support for interactivity. |
+| Stream            |     ❓     | Not tested but unlikey to work.                             |
+| Yoto Original     |     ❌     | Returns 404, probbaly use undocumented API.                 |
 
 ## Development environment
 

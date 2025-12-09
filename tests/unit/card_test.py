@@ -89,20 +89,14 @@ def test_parse_data_should_raise_error_when_invalid_data_provided():
     with pytest.raises(InvalidDataError) as e:
         parse_data(None)
     assert str(e.value) == 'Invalid data.'
-    assert str(e.value.__cause__) == "'NoneType' object is not subscriptable"
-    assert type(e.value.__cause__) is TypeError
 
     with pytest.raises(InvalidDataError) as e:
         parse_data([])
     assert str(e.value) == 'Invalid data.'
-    assert str(e.value.__cause__) == 'list indices must be integers or slices, not str'
-    assert type(e.value.__cause__) is TypeError
 
     with pytest.raises(InvalidDataError) as e:
         parse_data({'props': {'pageProps': {'card': {}}}})
     assert str(e.value) == 'Invalid data.'
-    assert str(e.value.__cause__) == "'metadata'"
-    assert type(e.value.__cause__) is KeyError
 
 
 def test_parse_data_should_return_populated_card():
