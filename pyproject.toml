@@ -12,13 +12,13 @@ authors = [
     { name = "Laurent Desgrange", email = "laurent+toto-backup-d^_^b@desgrange.net" },
 ]
 dependencies = [
-    "beautifulsoup4>=4.13.4",
-    "click>=8.2.1",
-    "mutagen>=1.47.0",
-    "pathvalidate>=3.3.1",
-    "puremagic>=1.30",
-    "requests>=2.32.4",
-    "structlog>=25.4.0",
+    "beautifulsoup4==4.*",
+    "click==8.*",
+    "mutagen==1.*",
+    "pathvalidate==3.*",
+    "puremagic==1.*",
+    "requests==2.*",
+    "structlog==25.*",
 ]
 requires-python = ">=3.10,<3.15"
 readme = "README.md"
@@ -35,16 +35,16 @@ toto_backup = "toto_backup.toto_backup:main"
 [dependency-groups]
 dev = [
     "licenseheaders>=0.8.8",
-    "mypy>=1.17.0",
-    "pip-audit>=2.9.0",
-    "pytest>=8.4.1",
-    "pytest-cov>=6.2.1",
-    "pytest-mock>=3.14.1",
-    "responses>=0.25.7",
-    "ruff>=0.12.3",
-    "shiv>=1.0.8",
-    "types-requests>=2.32.4.20250611",
-    "yq>=3.4.3",
+    "mypy==1.*",
+    "pip-audit==2.*",
+    "pytest==9.*",
+    "pytest-cov==7.*",
+    "pytest-mock==3.*",
+    "responses>=0.25.8",
+    "ruff>=0.14.8",
+    "shiv==1.*",
+    "types-requests==2.*",
+    "yq==3.*",
 ]
 
 [build-system]
