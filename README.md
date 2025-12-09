@@ -14,6 +14,16 @@ Simple tool to back up your Yoto cards.
 - In a terminal, run: `python toto-backup.pyz URL` where `URL` is replaced with the URL present on your Yoto card.
   That will create a folder with the tracks, icons and cover art in it.
 
+Compatibility:
+
+| Card type         | Supported | Comments                                                   |
+|-------------------|:---------:|------------------------------------------------------------|
+| Regular story     |    ✔️     |                                                            |
+| Interactive story |    ✔️❌    | All tracks are backed-up, but no support for interactivity |
+| MYO               |     ❓     | Not tested yet.                                            |
+| Stream            |     ❓     | Not tested but unlikey to work.                            |
+| Yoto Original     |     ❌     | Returns 404, probbaly use undocumented API.                |
+
 ## Development environment
 
 - [Install mise-en-place](https://mise.jdx.dev/getting-started.html#installing-mise-cli) and [activate](https://mise.jdx.dev/getting-started.html#activate-mise) it.
