@@ -1,6 +1,6 @@
 [project]
 name = "toto-backup"
-version = "0.2.3"
+version = "0.2.4"
 description = "Command line tool to backup your Yoto cards."
 keywords = ['yoto', "backup"]
 classifiers = [
