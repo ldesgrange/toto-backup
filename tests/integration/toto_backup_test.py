@@ -127,19 +127,19 @@ def generate_card_page_body() -> str:
                 "pageProps": {
                     "card": {
                         "slug": "the-card-title",
-                        "title": "The Card Title",
+                        "title": "The Card Title?",
                         "content": {
                             "chapters": [
                                 {
                                     "key": "001",
-                                    "title": "Chapter 1",
+                                    "title": "Chapter 1?",
                                     "display": {
                                         "icon16x16": "https://example.url/card/chapter-1-icon"
                                     },
                                     "tracks": [
                                         {
                                             "key": "001",
-                                            "title": "Introduction",
+                                            "title": "Introduction/",
                                             "format": "aac",
                                             "type": "audio",
                                             "trackUrl": "https://example.url/card/chapter-1-track-1"
@@ -166,7 +166,7 @@ def generate_card_page_body() -> str:
                         },
                         "metadata": {
                             "category": "stories",
-                            "author": "Author Name",
+                            "author": "Author Name/",
                             "cover": {
                                 "imageL": "https://example.url/card/cover"
                             }

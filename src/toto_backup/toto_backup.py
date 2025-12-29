@@ -109,7 +109,8 @@ def download_and_move_content(url: str, destination: Path) -> Path | None:
     try:
         temporary_file, mime_type = download_content(url)
         extension = get_extension(mime_type, temporary_file) or ''
-        final_destination = destination.with_name(f'{destination.name}{extension}')
+        sanitized_filename = sanitize_filename(f'{destination.name}{extension}', validate_after_sanitize=True)
+        final_destination = destination.with_name(sanitized_filename)
         shutil.move(temporary_file, final_destination)
     except HTTPError:
         return None
