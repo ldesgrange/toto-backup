@@ -88,10 +88,10 @@ jobs:
 
       - name: Build
         run: |
-          pdm build
+          pdm run shiv --output-file toto-backup.pyz --console-script toto_backup .
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v6
         with:
           name: dist-artifacts
-          path: dist/**.whl
+          path: "**.pyz"
