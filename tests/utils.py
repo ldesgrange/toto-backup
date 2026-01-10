@@ -1,7 +1,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 #
-# Copyright (c) 2025-2025 "Laurent Desgrange".
+# Copyright (c) 2025-2026 "Laurent Desgrange".
 #
 # This file is part of "toto-backup".
 # See "https://github.com/ldesgrange/toto-backup") for further information.
