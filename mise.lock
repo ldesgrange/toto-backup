@@ -1,5 +1,5 @@
 [[tools.pdm]]
-version = "2.26.0"
+version = "2.26.7"
 backend = "pipx:pdm"
 
 [[tools.pipx]]
@@ -11,10 +11,10 @@ backend = "aqua:pypa/pipx"
 "platforms.macos-x64" = { checksum = "sha256:b9eabd835dffe0677e36bd99416fc9837c592bd8c079235379bed3dfe043c601", url = "https://github.com/pypa/pipx/releases/download/1.8.0/pipx.pyz"}
 
 [[tools.python]]
-version = "3.13.7"
+version = "3.14.1"
 backend = "core:python"
-"platforms.linux-arm64" = { checksum = "sha256:0af6c9a17df4d5afdef37825d0cc703264c1a0a94dad825b2b6b6975b524c0d5", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20250918/cpython-3.13.7+20250918-aarch64-unknown-linux-gnu-install_only_stripped.tar.gz"}
-"platforms.linux-x64" = { checksum = "sha256:888fb7e192caafdb33e028f865b7da68dce5e924cfe58fcef96323e175a70e3e", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20250918/cpython-3.13.7+20250918-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"}
-"platforms.macos-arm64" = { checksum = "sha256:10f26ea5fc7c4d9c012faf372898a801f34b8fd7730c677576263224d56835fe", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20250918/cpython-3.13.7+20250918-aarch64-apple-darwin-install_only_stripped.tar.gz"}
-"platforms.macos-x64" = { checksum = "sha256:e640143d4dde2edff1865c3e88e44b046478b790af4f8b3ac4d228e53952dda0", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20250918/cpython-3.13.7+20250918-x86_64-apple-darwin-install_only_stripped.tar.gz"}
-"platforms.windows-x64" = { checksum = "sha256:bc229e5364699a8456b6ceabde8348c75e62312ffd62631dd1e494a1755a45ed", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20250918/cpython-3.13.7+20250918-x86_64-pc-windows-msvc-install_only_stripped.tar.gz"}
+"platforms.linux-arm64" = { checksum = "sha256:a089ab3c84441d0b1b18c550a83f65f7aff4c0a43143b877b440b3491c6f33cd", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20251202/cpython-3.14.1+20251202-aarch64-unknown-linux-gnu-install_only_stripped.tar.gz"}
+"platforms.linux-x64" = { checksum = "sha256:8e0f6383e07eb331c67a57632de8c00d5709423491f105ff9aa802a5610d59e4", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20251202/cpython-3.14.1+20251202-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"}
+"platforms.macos-arm64" = { checksum = "sha256:c811f87c17fd95712ffaa42b967b36aeffe465449c3255758bddf344505f5d9b", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20251202/cpython-3.14.1+20251202-aarch64-apple-darwin-install_only_stripped.tar.gz"}
+"platforms.macos-x64" = { checksum = "sha256:b2f7f169f1637c93b26b17131b56da21f066079a7f65d6a4369ef8d11e800572", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20251202/cpython-3.14.1+20251202-x86_64-apple-darwin-install_only_stripped.tar.gz"}
+"platforms.windows-x64" = { checksum = "sha256:34bcfc74686ccc84b6dc8b232fc13a6c09d284510f3332fc757fe7ea3c804229", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20251202/cpython-3.14.1+20251202-x86_64-pc-windows-msvc-install_only_stripped.tar.gz"}

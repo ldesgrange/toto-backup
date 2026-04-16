@@ -3,7 +3,7 @@ experimental = true # So hooks are run.
 lockfile = true
 
 [tools]
-pdm = "2.26.2"
+pdm = "latest"
 pipx = "1.8.0"
 python = "3.14.1"
 
