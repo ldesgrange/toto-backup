@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: 3.14
           cache: true
-	  cache-dependency-path: './pylock.toml'
+          cache-dependency-path: './pylock.toml'
 
       - name: Install dependencies
         run: |
