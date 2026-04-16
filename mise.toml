@@ -1,5 +1,6 @@
 [settings]
 experimental = true # So hooks are run.
+lockfile = true
 
 [tools]
 pdm = "2.26.2"
@@ -9,6 +10,7 @@ python = "3.14.1"
 [hooks]
 postinstall = [
     "git config core.hooksPath .githooks",
+    "pdm config lock.format pylock",
     "pdm install --plugins",
     "pdm install"
 ]
