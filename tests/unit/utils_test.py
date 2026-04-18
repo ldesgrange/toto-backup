@@ -14,6 +14,7 @@
 import logging
 import os
 from pathlib import Path
+from unittest import mock
 
 import click
 import pytest
@@ -64,6 +65,12 @@ def test_get_extension_should_return_extension_from_mime_type():
     assert get_extension('audio/mpeg', None) == '.mp3'
     assert get_extension('audio/ogg', None) == '.ogg'
     assert get_extension('audio/mpeg', get_dummy_m4a_file()) == '.mp3'
+
+
+@mock.patch('toto_backup.utils.guess_extension')
+def test_get_extension_should_return_canonical_audio_extension(_guess_extension_mock: mock.Mock):
+    assert get_extension('audio/ogg', None) == '.ogg'
+    _guess_extension_mock.assert_not_called()
 
 
 def test_get_extension_should_return_extension_from_magic_bytes():

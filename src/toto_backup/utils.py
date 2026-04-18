@@ -28,6 +28,12 @@ from requests.structures import CaseInsensitiveDict
 
 logger = structlog.stdlib.get_logger()
 
+CANONICAL_EXTENSION_BY_MIME_TYPE = {
+    'audio/mp4': '.m4a',
+    'audio/mpeg': '.mp3',
+    'audio/ogg': '.ogg',
+}
+
 
 def get_mime_type(headers: CaseInsensitiveDict[str]) -> str | None:
     mime_type = headers.get('Content-Type', '').partition(';')[0].strip()
@@ -44,6 +50,9 @@ def get_extension(mime_type: str | None, file: Path | None) -> str | None:
     extension = None
 
     if mime_type:
+        extension = CANONICAL_EXTENSION_BY_MIME_TYPE.get(mime_type)
+
+    if mime_type and not extension:
         extension = guess_extension(mime_type)
 
     # Some extensions are meaningless, ignore them.
