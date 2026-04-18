@@ -34,7 +34,7 @@ from toto_backup.utils import (
     format_base_filename,
     deep_get,
 )
-from utils import get_dummy_m4a_file, get_dummy_file
+from utils import get_dummy_m4a_file, get_dummy_ogg_file, get_dummy_mp3_file, get_dummy_file
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +49,10 @@ def test_get_mime_type_should_return_mime_type_from_http_headers():
 
 def test_get_mime_type_should_fix_known_problematic_mime_types():
     assert get_mime_type(CaseInsensitiveDict({'Content-Type': 'audio/x-m4a'})) == 'audio/mp4'
+    assert get_mime_type(CaseInsensitiveDict({'Content-Type': 'audio/x-ogg'})) == 'audio/ogg'
+    assert get_mime_type(CaseInsensitiveDict({'Content-Type': 'application/x-ogg'})) == 'audio/ogg'
+    assert get_mime_type(CaseInsensitiveDict({'Content-Type': 'application/ogg'})) == 'audio/ogg'
+    assert get_mime_type(CaseInsensitiveDict({'Content-Type': 'audio/vorbis'})) == 'audio/ogg'
 
 
 def test_get_extension_should_return_extension_from_mime_type():
@@ -58,6 +62,7 @@ def test_get_extension_should_return_extension_from_mime_type():
     assert get_extension('application/octet-stream', None) is None
     assert get_extension('audio/mp4', None) == '.m4a'
     assert get_extension('audio/mpeg', None) == '.mp3'
+    assert get_extension('audio/ogg', None) == '.ogg'
     assert get_extension('audio/mpeg', get_dummy_m4a_file()) == '.mp3'
 
 
@@ -65,6 +70,8 @@ def test_get_extension_should_return_extension_from_magic_bytes():
     assert get_extension(None, None) is None
     assert get_extension(None, get_dummy_file()) is None
     assert get_extension(None, get_dummy_m4a_file()) == '.m4a'
+    assert get_extension(None, get_dummy_mp3_file()) == '.mp3'
+    assert get_extension(None, get_dummy_ogg_file()) == '.ogg'
 
 
 @responses.activate

@@ -33,6 +33,11 @@ def get_dummy_mp3_file() -> Path:
     return get_project_root() / 'tests/data/empty.mp3'
 
 
+def get_dummy_ogg_file() -> Path:
+    # “empty.ogg” was generated using: `ffmpeg -f lavfi -t 1 -i anullsrc -c:a libvorbis -shortest empty.ogg`
+    return get_project_root() / 'tests/data/empty.ogg'
+
+
 def get_dummy_png_file() -> Path:
     # “empty.png” was generated using: `convert -size 16x16 xc:white empty.png`
     return get_project_root() / 'tests/data/empty.png'

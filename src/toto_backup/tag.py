@@ -11,12 +11,15 @@
 # was not distributed with this file, You can obtain one
 # at https://mozilla.org/MPL/2.0/.
 #
+import base64
 from pathlib import Path
 
 import structlog
 from mutagen.easyid3 import EasyID3
+from mutagen.flac import Picture
 from mutagen.id3 import ID3, Encoding, APIC, PictureType
 from mutagen.mp4 import MP4Tags, MP4Cover
+from mutagen.oggvorbis import OggVorbis
 
 logger = structlog.stdlib.get_logger()
 
@@ -38,6 +41,8 @@ def tag_track(track_file: Path, track_metadata: Metadata) -> None:
         add_mp4_tags(track_file, track_metadata)
     elif track_file.suffix == '.mp3':
         add_id3_tags(track_file, track_metadata)
+    elif track_file.suffix in ['.ogg', '.oga']:
+        add_ogg_tags(track_file, track_metadata)
 
 
 def add_mp4_tags(track_file: Path, track_metadata: Metadata) -> None:
@@ -96,19 +101,14 @@ def add_id3_tags(track_file: Path, track_metadata: Metadata) -> None:
     # Add cover.
     if track_metadata.cover_file:
         with open(track_metadata.cover_file, 'rb') as icon_file:
-            # Determine file format.
-            image_format = None
-            if track_metadata.cover_file.suffix == '.png':
-                image_format = 'image/png'
-            elif track_metadata.cover_file.suffix == '.jpg':
-                image_format = 'image/jpeg'
+            mime_type = _cover_mime_type(track_metadata.cover_file)
             # Add cover.
-            if image_format is not None:
+            if mime_type is not None:
                 tags_for_cover = ID3(track_file)
                 tags_for_cover.add(
                     APIC(
                         encoding=Encoding.UTF8,
-                        mime=image_format,
+                        mime=mime_type,
                         type=PictureType.ILLUSTRATION,
                         data=icon_file.read(),
                     )
@@ -116,3 +116,49 @@ def add_id3_tags(track_file: Path, track_metadata: Metadata) -> None:
                 tags_for_cover.save()
             else:
                 logger.warning(f'Unsupported cover file format: {track_metadata.cover_file}')
+
+
+def add_ogg_tags(track_file: Path, track_metadata: Metadata) -> None:
+    tags = OggVorbis(track_file)
+    _set_ogg_text_tag(tags, 'artist', track_metadata.author)
+    _set_ogg_text_tag(tags, 'albumartist', track_metadata.author)
+    _set_ogg_text_tag(tags, 'album', track_metadata.title)
+    _set_ogg_text_tag(tags, 'title', track_metadata.track_name)
+    _set_ogg_text_tag(tags, 'genre', 'Audiobook')
+    _set_ogg_text_tag(tags, 'website', track_metadata.card_url)
+    _set_ogg_number_tag(tags, 'tracknumber', track_metadata.track_number)
+    _set_ogg_number_tag(tags, 'tracktotal', track_metadata.track_total)
+    _set_ogg_number_tag(tags, 'discnumber', track_metadata.disc_number)
+    _set_ogg_number_tag(tags, 'disctotal', track_metadata.disc_total)
+
+    if track_metadata.cover_file:
+        with open(track_metadata.cover_file, 'rb') as icon_file:
+            mime_type = _cover_mime_type(track_metadata.cover_file)
+
+            if mime_type is not None:
+                picture = Picture()
+                picture.type = PictureType.COVER_FRONT
+                picture.mime = mime_type
+                picture.data = icon_file.read()
+                tags['metadata_block_picture'] = [base64.b64encode(picture.write()).decode('ascii')]
+
+    tags.save()
+
+
+def _set_ogg_text_tag(tags: OggVorbis, key: str, value: str | None) -> None:
+    if value:
+        tags[key] = value
+
+
+def _set_ogg_number_tag(tags: OggVorbis, key: str, value: int | None) -> None:
+    if value:
+        tags[key] = str(value)
+
+
+def _cover_mime_type(cover_file: Path) -> str | None:
+    if cover_file.suffix == '.png':
+        return 'image/png'
+    elif cover_file.suffix == '.jpg':
+        return 'image/jpeg'
+    else:
+        return None

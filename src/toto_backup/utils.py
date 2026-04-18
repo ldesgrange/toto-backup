@@ -34,6 +34,8 @@ def get_mime_type(headers: CaseInsensitiveDict[str]) -> str | None:
 
     if mime_type == 'audio/x-m4a':
         mime_type = 'audio/mp4'
+    elif mime_type in ['audio/x-ogg', 'application/x-ogg', 'application/ogg', 'audio/vorbis']:
+        mime_type = 'audio/ogg'
 
     return mime_type or None
 

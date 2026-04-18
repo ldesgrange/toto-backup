@@ -27,6 +27,7 @@ Compatibility:
 Supported audio formats:
 - MP3
 - M4A
+- OGG
 
 ## Development environment
 
