@@ -2,7 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,6 +30,11 @@ jobs:
         run: |
           pdm install -G dev
 
+      - name: License headers
+        run: |
+          pdm run bash ./.mise/tasks/licenseheaders
+          git diff --exit-code -- src tests
+
       - name: Ruff format
         run: pdm run ruff format --check src tests
 
@@ -44,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.10", 3.11, 3.12, 3.13, 3.14 ]
+        python-version: [ "3.10", "3.11", "3.12", "3.13", "3.14" ]
         os: [ ubuntu-latest, windows-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     permissions:
@@ -96,4 +103,4 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: dist-artifacts
-          path: "**.pyz"
+          path: "*.pyz"
