@@ -7,6 +7,7 @@ pdm = "latest"
 python = "3.14"
 opencode = "latest"
 pre-commit = "latest"
+shellcheck = "latest"
 
 [hooks]
 postinstall = [
@@ -39,6 +40,10 @@ run = "mypy src"
 description = "Check dependencies for vulnerabilities"
 run = "pip-audit"
 
+[tasks.shellcheck]
+description = "Lint shell scripts"
+run = "git grep -lz '^#!.*\\b\\(bash\\|sh\\)\\b' -- | xargs -0 -r shellcheck"
+
 [tasks.run]
 description = "Run app with a Yoto URL"
 run = "pdm run toto_backup {{arg(name='url')}}"
@@ -53,4 +58,4 @@ run = "shiv --output-file toto-backup.pyz --console-script toto_backup ."
 
 [tasks.check]
 description = "Run formatter, linter, typechecker, and tests"
-depends = ["fmt", "lint", "typecheck", "test"]
+depends = ["fmt", "lint", "typecheck", "shellcheck", "test"]

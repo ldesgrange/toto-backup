@@ -1,4 +1,19 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+        stages: [pre-commit]
+      - id: check-toml
+        stages: [pre-commit]
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        types_or: [shell]
+        stages: [pre-commit]
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.11
     hooks:
@@ -13,6 +28,13 @@ repos:
 
   - repo: local
     hooks:
+      - id: forbid-yml-extension
+        name: forbid .yml extension
+        entry: Use .yaml extension instead of .yml
+        language: fail
+        files: \.yml$
+        stages: [pre-commit]
+
       - id: mise-typecheck
         name: mypy
         entry: mise run typecheck
