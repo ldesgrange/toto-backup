@@ -4,8 +4,8 @@ lockfile = true
 
 [tools]
 pdm = "latest"
-pipx = "1.8.0"
-python = "3.14.1"
+python = "3.14"
+opencode = "latest"
 
 [hooks]
 postinstall = [
@@ -17,3 +17,39 @@ postinstall = [
 
 [env]
 _.python.venv = { path = ".venv", create = true }
+
+[tasks.test]
+description = "Run test suite"
+run = "pytest"
+
+[tasks.fmt]
+description = "Format code"
+run = "ruff format"
+
+[tasks.lint]
+description = "Lint and auto-fix"
+run = "ruff check --fix"
+
+[tasks.typecheck]
+description = "Run static type checks"
+run = "mypy src"
+
+[tasks.audit]
+description = "Check dependencies for vulnerabilities"
+run = "pip-audit"
+
+[tasks.run]
+description = "Run app with a Yoto URL"
+run = "pdm run toto_backup {{arg(name='url')}}"
+
+[tasks.build]
+description = "Build package artifacts"
+run = "pdm build"
+
+[tasks.pyz]
+description = "Build zipapp"
+run = "shiv --output-file toto-backup.pyz --console-script toto_backup ."
+
+[tasks.check]
+description = "Run formatter, linter, typechecker, and tests"
+depends = ["fmt", "lint", "typecheck", "test"]

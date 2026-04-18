@@ -38,14 +38,15 @@ Supported audio formats:
   mise trust  # Look at mise.toml first to know what’s going to happen.
   mise install
   ```
-- Run tests: `pytest`
-- Format code: `ruff format`
-- Check code: `ruff check --fix`
-- Check types: `mypy src`
-- Check for known vulnerabilities: `pip-audit`
-- Run the app: `pdm run toto_backup URL`
-- Build the app: `pdm build`
-- Generate a zipapp: `shiv --output-file toto-backup.pyz --console-script toto_backup .`
+- Run tests: `mise run test`
+- Format code: `mise run fmt`
+- Check code: `mise run lint`
+- Check types: `mise run typecheck`
+- Check for known vulnerabilities: `mise run audit`
+- Run all checks: `mise run check`
+- Run the app: `mise run run --url="URL"`
+- Build the app: `mise run build`
+- Generate a zipapp: `mise run pyz`
 
 ## Release
 
