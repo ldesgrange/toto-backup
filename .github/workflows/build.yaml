@@ -32,6 +32,12 @@ jobs:
         run: |
           pdm sync -G dev
 
+      - name: Install pre-commit
+        run: python -m pip install pre-commit
+
+      - name: ShellCheck
+        run: pre-commit run shellcheck --all-files
+
       - name: License headers
         run: |
           pdm run bash ./.mise/tasks/licenseheaders
