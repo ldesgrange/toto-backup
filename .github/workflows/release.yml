@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync -G dev --frozen-lockfile
+          pdm sync -G dev
 
       - name: Build
         run: |

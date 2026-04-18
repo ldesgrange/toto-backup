@@ -3,8 +3,6 @@ name: Build
 on:
   push:
     branches: [ "**" ]
-  pull_request:
-    branches: [ "**" ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -32,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync -G dev --frozen-lockfile
+          pdm sync -G dev
 
       - name: License headers
         run: |
@@ -74,7 +72,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync -G dev --frozen-lockfile
+          pdm sync -G dev
 
       - name: Run tests
         run: pdm run pytest
@@ -100,7 +98,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync -G dev --frozen-lockfile
+          pdm sync -G dev
 
       - name: Build
         run: |
