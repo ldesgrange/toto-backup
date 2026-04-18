@@ -27,7 +27,7 @@ Compatibility:
 Supported audio formats:
 - MP3
 - M4A
-- OGG
+- OGG (Vorbis and Opus)
 
 ## Development environment
 

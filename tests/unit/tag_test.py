@@ -20,7 +20,13 @@ from mutagen.id3 import ID3Tags, APIC, PictureType
 from mutagen.mp4 import MP4Cover, MP4Tags
 
 from toto_backup.tag import tag_track, Metadata
-from utils import get_dummy_m4a_file, get_dummy_ogg_file, get_dummy_png_file, get_dummy_mp3_file
+from utils import (
+    get_dummy_m4a_file,
+    get_dummy_ogg_opus_file,
+    get_dummy_ogg_vorbis_file,
+    get_dummy_png_file,
+    get_dummy_mp3_file,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -64,9 +70,29 @@ def test_tag_track_should_add_tags_to_mp3_track(tmp_path: Path):
     assert cover.mime == 'image/png'
 
 
-def test_tag_track_should_add_tags_to_ogg_track(tmp_path: Path):
+def test_tag_track_should_add_tags_to_ogg_vorbis_track(tmp_path: Path):
     track_file = tmp_path / 'empty_1.ogg'
-    shutil.copy(get_dummy_ogg_file(), track_file)
+    shutil.copy(get_dummy_ogg_vorbis_file(), track_file)
+
+    tag_track(track_file, create_metadata())
+
+    actual_tags = File(track_file).tags
+    assert actual_tags['artist'][0] == 'Author'
+    assert actual_tags['albumartist'][0] == 'Author'
+    assert actual_tags['album'][0] == 'Title'
+    assert actual_tags['title'][0] == 'Track Name'
+    assert actual_tags['genre'][0] == 'Audiobook'
+    assert actual_tags['website'][0] == 'https://example.com/card'
+    assert actual_tags['tracknumber'][0] == '1'
+    assert actual_tags['tracktotal'][0] == '1'
+    assert actual_tags['discnumber'][0] == '1'
+    assert actual_tags['disctotal'][0] == '1'
+    assert actual_tags['metadata_block_picture'][0] is not None
+
+
+def test_tag_track_should_add_tags_to_ogg_opus_track(tmp_path: Path):
+    track_file = tmp_path / 'empty_1.opus'
+    shutil.copy(get_dummy_ogg_opus_file(), track_file)
 
     tag_track(track_file, create_metadata())
 

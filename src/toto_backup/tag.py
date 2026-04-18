@@ -18,8 +18,10 @@ import structlog
 from mutagen.easyid3 import EasyID3
 from mutagen.flac import Picture
 from mutagen.id3 import ID3, Encoding, APIC, PictureType
+from mutagen.ogg import OggFileType
+from mutagen.oggopus import OggOpus, OggOpusHeaderError
 from mutagen.mp4 import MP4Tags, MP4Cover
-from mutagen.oggvorbis import OggVorbis
+from mutagen.oggvorbis import OggVorbis, OggVorbisHeaderError
 
 logger = structlog.stdlib.get_logger()
 
@@ -41,7 +43,7 @@ def tag_track(track_file: Path, track_metadata: Metadata) -> None:
         add_mp4_tags(track_file, track_metadata)
     elif track_file.suffix == '.mp3':
         add_id3_tags(track_file, track_metadata)
-    elif track_file.suffix in ['.ogg', '.oga']:
+    elif track_file.suffix in ['.ogg', '.oga', '.opus']:
         add_ogg_tags(track_file, track_metadata)
 
 
@@ -119,7 +121,11 @@ def add_id3_tags(track_file: Path, track_metadata: Metadata) -> None:
 
 
 def add_ogg_tags(track_file: Path, track_metadata: Metadata) -> None:
-    tags = OggVorbis(track_file)
+    tags = _open_ogg_tags(track_file)
+    if tags is None:
+        logger.warning(f'Failed to tag unsupported OGG stream: {track_file}')
+        return
+
     _set_ogg_text_tag(tags, 'artist', track_metadata.author)
     _set_ogg_text_tag(tags, 'albumartist', track_metadata.author)
     _set_ogg_text_tag(tags, 'album', track_metadata.title)
@@ -145,12 +151,30 @@ def add_ogg_tags(track_file: Path, track_metadata: Metadata) -> None:
     tags.save()
 
 
-def _set_ogg_text_tag(tags: OggVorbis, key: str, value: str | None) -> None:
+def _open_ogg_tags(track_file: Path) -> OggFileType | None:
+    handlers = [
+        ('OggVorbis', OggVorbis, OggVorbisHeaderError),
+        ('OggOpus', OggOpus, OggOpusHeaderError),
+    ]
+
+    for handler_name, handler_type, handler_error in handlers:
+        try:
+            tags = handler_type(track_file)
+        except handler_error:
+            continue
+
+        logger.debug(f'Selected OGG handler {handler_name} for file {track_file}')
+        return tags
+
+    return None
+
+
+def _set_ogg_text_tag(tags: OggFileType, key: str, value: str | None) -> None:
     if value:
         tags[key] = value
 
 
-def _set_ogg_number_tag(tags: OggVorbis, key: str, value: int | None) -> None:
+def _set_ogg_number_tag(tags: OggFileType, key: str, value: int | None) -> None:
     if value:
         tags[key] = str(value)
 

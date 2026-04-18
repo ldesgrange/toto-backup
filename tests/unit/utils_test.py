@@ -34,7 +34,7 @@ from toto_backup.utils import (
     format_base_filename,
     deep_get,
 )
-from utils import get_dummy_m4a_file, get_dummy_ogg_file, get_dummy_mp3_file, get_dummy_file
+from utils import get_dummy_m4a_file, get_dummy_ogg_vorbis_file, get_dummy_mp3_file, get_dummy_file
 
 logger = logging.getLogger(__name__)
 
@@ -71,7 +71,7 @@ def test_get_extension_should_return_extension_from_magic_bytes():
     assert get_extension(None, get_dummy_file()) is None
     assert get_extension(None, get_dummy_m4a_file()) == '.m4a'
     assert get_extension(None, get_dummy_mp3_file()) == '.mp3'
-    assert get_extension(None, get_dummy_ogg_file()) == '.ogg'
+    assert get_extension(None, get_dummy_ogg_vorbis_file()) == '.ogg'
 
 
 @responses.activate
