@@ -62,3 +62,5 @@ Supported audio formats:
 
 - Update tools (`python`, `pdm`): `mise update --interactive --bump`
 - Update dependencies: `pdm update`
+- Update pre-commit hooks (frozen/pinned to commit SHA): `pre-commit autoupdate --freeze`
+- Validate updated hooks: `pre-commit run --all-files && pre-commit run --hook-stage pre-push --all-files`
