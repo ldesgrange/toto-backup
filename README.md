@@ -38,6 +38,9 @@ Supported audio formats:
   mise trust  # Look at mise.toml first to know what’s going to happen.
   mise install
   ```
+- Git hooks are installed automatically by `mise install` via `pre-commit`.
+- Run all commit-time checks once on the whole repository: `pre-commit run --all-files`
+- Run pre-push checks once on the whole repository: `pre-commit run --hook-stage pre-push --all-files`
 - Run tests: `mise run test`
 - Format code: `mise run fmt`
 - Check code: `mise run lint`

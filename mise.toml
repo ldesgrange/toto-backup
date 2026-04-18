@@ -6,10 +6,11 @@ lockfile = true
 pdm = "latest"
 python = "3.14"
 opencode = "latest"
+pre-commit = "latest"
 
 [hooks]
 postinstall = [
-    "git config core.hooksPath .githooks",
+    "pre-commit install --hook-type pre-commit --hook-type pre-push",
     "pdm config lock.format pylock",
     "pdm install --plugins",
     "pdm install"

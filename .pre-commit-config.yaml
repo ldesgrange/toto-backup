@@ -1,0 +1,35 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.11
+    hooks:
+      - id: ruff-format
+        args: [--check, src, tests]
+        pass_filenames: false
+        stages: [pre-commit]
+      - id: ruff-check
+        args: [--no-fix, src, tests]
+        pass_filenames: false
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: mise-typecheck
+        name: mypy
+        entry: mise run typecheck
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: mise-licenseheaders
+        name: licenseheaders
+        entry: mise run licenseheaders
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: mise-audit
+        name: pip-audit
+        entry: mise run audit
+        language: system
+        pass_filenames: false
+        stages: [pre-push, manual]
