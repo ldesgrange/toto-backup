@@ -24,6 +24,10 @@ Compatibility:
 | Stream            |     ❓     | Not tested but unlikey to work.                             |
 | Yoto Original     |     ❌     | Returns 404, probably use undocumented API.                 |
 
+Supported audio formats:
+- MP3
+- M4A
+
 ## Development environment
 
 - [Install mise-en-place](https://mise.jdx.dev/getting-started.html#installing-mise-cli) and [activate](https://mise.jdx.dev/getting-started.html#activate-mise) it.
