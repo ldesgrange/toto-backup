@@ -3,28 +3,28 @@ repos:
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
     hooks:
       - id: check-yaml
-        stages: [pre-commit]
+        stages: [ pre-commit ]
       - id: check-toml
-        stages: [pre-commit]
+        stages: [ pre-commit ]
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: 745eface02aef23e168a8afb6b5737818efbea95  # frozen: v0.11.0.1
     hooks:
       - id: shellcheck
-        types_or: [shell]
-        stages: [pre-commit]
+        types_or: [ shell ]
+        stages: [ pre-commit ]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 22f0422809455ec89ffdcf5a00170ba816e42ddb  # frozen: v0.15.16
+    rev: 77039ccbba72c8aede339c5f8ae29b42aced0a2e  # frozen: v0.15.18
     hooks:
       - id: ruff-format
-        args: [--check, src, tests]
+        args: [ --check, src, tests ]
         pass_filenames: false
-        stages: [pre-commit]
+        stages: [ pre-commit ]
       - id: ruff-check
-        args: [--no-fix, src, tests]
+        args: [ --no-fix, src, tests ]
         pass_filenames: false
-        stages: [pre-commit]
+        stages: [ pre-commit ]
 
   - repo: local
     hooks:
@@ -33,25 +33,25 @@ repos:
         entry: Use .yaml extension instead of .yml
         language: fail
         files: \.yml$
-        stages: [pre-commit]
+        stages: [ pre-commit ]
 
       - id: mise-typecheck
         name: mypy
         entry: mise run typecheck
         language: system
         pass_filenames: false
-        stages: [pre-commit]
+        stages: [ pre-commit ]
 
       - id: mise-licenseheaders
         name: licenseheaders
         entry: mise run licenseheaders
         language: system
         pass_filenames: false
-        stages: [pre-commit]
+        stages: [ pre-commit ]
 
       - id: mise-audit
         name: pip-audit
         entry: mise run audit
         language: system
         pass_filenames: false
-        stages: [pre-push, manual]
+        stages: [ pre-push, manual ]
