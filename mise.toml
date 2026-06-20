@@ -12,10 +12,10 @@ shellcheck = "latest"
 
 [hooks]
 postinstall = [
-    "pre-commit install --hook-type pre-commit --hook-type pre-push",
-    "pdm config lock.format pylock",
-    "pdm install --plugins",
-    "pdm install"
+  "pre-commit install --hook-type pre-commit --hook-type pre-push",
+  "pdm config lock.format pylock",
+  "pdm install --plugins",
+  "pdm install",
 ]
 
 [env]

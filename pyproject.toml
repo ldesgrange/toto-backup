@@ -35,7 +35,7 @@ toto_backup = "toto_backup.toto_backup:main"
 [dependency-groups]
 dev = [
     "licenseheaders~=0.8.8",
-    "mypy~=1.20",
+    "mypy~=2.1",
     "pip-audit~=2.10",
     "pytest~=9.1",
     "pytest-cov~=7.1",
