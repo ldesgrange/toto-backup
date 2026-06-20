@@ -12,10 +12,10 @@ shellcheck = "latest"
 
 [hooks]
 postinstall = [
-  "pre-commit install --hook-type pre-commit --hook-type pre-push",
-  "pdm config lock.format pylock",
-  "pdm install --plugins",
-  "pdm install",
+    "pre-commit install --hook-type pre-commit --hook-type pre-push",
+    "pdm config lock.format pylock",
+    "pdm install --plugins",
+    "pdm install",
 ]
 
 [env]
@@ -45,9 +45,12 @@ run = "pip-audit"
 description = "Lint shell scripts"
 run = "git grep -lz '^#!.*\\b\\(bash\\|sh\\)\\b' -- | xargs -0 -r shellcheck"
 
-[tasks.run]
+[tasks.run-app]
 description = "Run app with a Yoto URL"
-run = "pdm run toto_backup {{arg(name='url')}}"
+usage = '''
+arg "<url>"
+'''
+run = 'pdm run toto_backup "${usage_url}"'
 
 [tasks.build]
 description = "Build package artifacts"
