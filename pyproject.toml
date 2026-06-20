@@ -18,7 +18,7 @@ dependencies = [
     "pathvalidate~=3.3",
     "puremagic~=1.30",
     "requests~=2.34",
-    "structlog~=25.5",
+    "structlog~=26.1",
 ]
 requires-python = ">=3.10,<3.15"
 readme = "README.md"
