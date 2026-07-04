@@ -44,7 +44,7 @@ dev = [
     "ruff~=0.15.18",
     "shiv~=1.0",
     "types-requests~=2.33",
-    "yq~=3.4",
+    "yq>=3.4,<5.0",
 ]
 
 [build-system]
