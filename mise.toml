@@ -22,38 +22,42 @@ postinstall = [
 _.python.venv = { path = ".venv", create = true }
 
 [tasks.test]
-description = "Run test suite"
+description = "Run test suite."
 run = "pytest"
 
-[tasks.fmt]
-description = "Format code"
+[tasks.ruff-format]
+description = "Run ruff format."
+hide = true
 run = "ruff format"
 
-[tasks.lint]
-description = "Lint and auto-fix"
-run = "ruff check --fix"
+[tasks.ruff-check]
+description = "Run ruff check."
+hide = true
+run = "ruff check --fix --exit-non-zero-on-fix"
 
-[tasks.typecheck]
-description = "Run static type checks"
+[tasks.mypy]
+description = "Run mypy."
+hide = true
 run = "mypy src"
 
-[tasks.audit]
-description = "Check dependencies for vulnerabilities"
-run = "pip-audit"
-
 [tasks.shellcheck]
-description = "Lint shell scripts"
+description = "Run shellcheck."
+hide = true
 run = "git grep -lz '^#!.*\\b\\(bash\\|sh\\)\\b' -- | xargs -0 -r shellcheck"
 
+[tasks.audit]
+description = "Check dependencies for vulnerabilities."
+run = "pip-audit"
+
 [tasks.run-app]
-description = "Run app with a Yoto URL"
+description = "Run app with a Yoto URL."
 usage = '''
 arg "<url>"
 '''
 run = 'pdm run toto_backup "${usage_url}"'
 
 [tasks.build]
-description = "Build package artifacts"
+description = "Build package artifacts."
 run = "pdm build"
 
 [tasks.pyz]
@@ -62,4 +66,4 @@ run = "shiv --output-file toto-backup.pyz --console-script toto_backup ."
 
 [tasks.check]
 description = "Run formatter, linter, typechecker, and tests"
-depends = ["fmt", "lint", "typecheck", "shellcheck", "test"]
+depends = ["ruff-format", "ruff-check", "mypy", "shellcheck", "test"]

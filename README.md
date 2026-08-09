@@ -20,9 +20,9 @@ Compatibility:
 |-------------------|:---------:|-------------------------------------------------------------|
 | Regular story     |    ✔️     |                                                             |
 | MYO               |    ✔️     |                                                             |
-| Interactive story |    ✔️❌    | All tracks are backed-up, but no support for interactivity. |
-| Stream            |     ❓     | Not tested but unlikey to work.                             |
-| Yoto Original     |     ❌     | Returns 404, probably use undocumented API.                 |
+| Interactive story |   ✔️❌    | All tracks are backed-up, but no support for interactivity. |
+| Stream            |    ❓     | Not tested but unlikey to work.                             |
+| Yoto Original     |    ❌     | Returns 404, probably use undocumented API.                 |
 
 Supported audio formats:
 - MP3
@@ -42,9 +42,9 @@ Supported audio formats:
 - Run all commit-time checks once on the whole repository: `pre-commit run --all-files`
 - Run pre-push checks once on the whole repository: `pre-commit run --hook-stage pre-push --all-files`
 - Run tests: `mise run test`
-- Format code: `mise run fmt`
-- Check code: `mise run lint`
-- Check types: `mise run typecheck`
+- Format code: `mise run ruff-format`
+- Check code: `mise run ruff-check`
+- Check types: `mise run mypy`
 - Check for known vulnerabilities: `mise run audit`
 - Run all checks: `mise run check`
 - Run the app: `mise run run --url="URL"`
