@@ -54,4 +54,4 @@ repos:
         entry: mise run audit
         language: system
         pass_filenames: false
-        stages: [ pre-push, manual ]
+        stages: [ pre-push ]
