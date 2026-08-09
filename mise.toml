@@ -6,7 +6,7 @@ lockfile = true
 opencode = "latest"
 python = "3.14"
 uv = "latest"
-pre-commit = { version = "latest", postinstall = "pre-commit install --install-hooks --hook-type pre-commit --hook-type pre-push" }
+pre-commit = { version = "latest", os = ["linux", "macos"], postinstall = "pre-commit install --install-hooks --hook-type pre-commit --hook-type pre-push" }
 shellcheck = "latest"
 actionlint = "latest"
 gh = "latest"
