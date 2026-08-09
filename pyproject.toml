@@ -49,13 +49,9 @@ dev = [
 
 [build-system]
 requires = [
-    "pdm-backend>=2.4.5",
+    "hatchling~=1.31",
 ]
-build-backend = "pdm.backend"
-
-[tool.pdm]
-distribution = true
-plugins = []
+build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
 addopts = "--cov --cov-branch"

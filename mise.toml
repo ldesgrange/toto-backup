@@ -5,56 +5,63 @@ lockfile = true
 [tools]
 opencode = "latest"
 python = "3.14"
-pipx = "latest"
-pdm = "latest"
-pre-commit = "latest"
+uv = "latest"
+pre-commit = { version = "latest", os = ["linux", "macos"], postinstall = "pre-commit install --install-hooks --hook-type pre-commit --hook-type pre-push" }
 shellcheck = "latest"
+actionlint = "latest"
+gh = "latest"
 
 [hooks]
 postinstall = [
-    "pre-commit install --hook-type pre-commit --hook-type pre-push",
-    "pdm config lock.format pylock",
-    "pdm install --plugins",
-    "pdm install",
+    "uv sync --locked",
 ]
 
 [env]
 _.python.venv = { path = ".venv", create = true }
 
 [tasks.test]
-description = "Run test suite"
+description = "Run test suite."
 run = "pytest"
 
-[tasks.fmt]
-description = "Format code"
+[tasks.ruff-format]
+description = "Run ruff format."
+hide = true
 run = "ruff format"
 
-[tasks.lint]
-description = "Lint and auto-fix"
-run = "ruff check --fix"
+[tasks.ruff-check]
+description = "Run ruff check."
+hide = true
+run = "ruff check --fix --exit-non-zero-on-fix"
 
-[tasks.typecheck]
-description = "Run static type checks"
+[tasks.mypy]
+description = "Run mypy."
+hide = true
 run = "mypy src"
 
-[tasks.audit]
-description = "Check dependencies for vulnerabilities"
-run = "pip-audit"
-
 [tasks.shellcheck]
-description = "Lint shell scripts"
+description = "Run shellcheck."
+hide = true
 run = "git grep -lz '^#!.*\\b\\(bash\\|sh\\)\\b' -- | xargs -0 -r shellcheck"
 
+[tasks.actionlint]
+description = "Run actionlint."
+hide = true
+run = "actionlint"
+
+[tasks.audit]
+description = "Check dependencies for vulnerabilities."
+run = "pip-audit"
+
 [tasks.run-app]
-description = "Run app with a Yoto URL"
+description = "Run app with a Yoto URL."
 usage = '''
 arg "<url>"
 '''
-run = 'pdm run toto_backup "${usage_url}"'
+run = 'uv run toto_backup "${usage_url}"'
 
 [tasks.build]
-description = "Build package artifacts"
-run = "pdm build"
+description = "Build package artifacts."
+run = "uv build"
 
 [tasks.pyz]
 description = "Build zipapp"
@@ -62,4 +69,4 @@ run = "shiv --output-file toto-backup.pyz --console-script toto_backup ."
 
 [tasks.check]
 description = "Run formatter, linter, typechecker, and tests"
-depends = ["fmt", "lint", "typecheck", "shellcheck", "test"]
+depends = ["actionlint", "licenseheaders", "ruff-format", "ruff-check", "mypy", "shellcheck", "test"]

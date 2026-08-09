@@ -2,32 +2,20 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
     hooks:
-      - id: check-yaml
-        stages: [ pre-commit ]
       - id: check-toml
         stages: [ pre-commit ]
-
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 745eface02aef23e168a8afb6b5737818efbea95  # frozen: v0.11.0.1
-    hooks:
-      - id: shellcheck
-        types_or: [ shell ]
-        stages: [ pre-commit ]
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 77039ccbba72c8aede339c5f8ae29b42aced0a2e  # frozen: v0.15.18
-    hooks:
-      - id: ruff-format
-        args: [ --check, src, tests ]
-        pass_filenames: false
-        stages: [ pre-commit ]
-      - id: ruff-check
-        args: [ --no-fix, src, tests ]
-        pass_filenames: false
+      - id: check-yaml
         stages: [ pre-commit ]
 
   - repo: local
     hooks:
+      - id: forbid-tml-extension
+        name: forbid .tml extension
+        entry: Use .toml extension instead of .tml
+        language: fail
+        files: \.tml$
+        stages: [ pre-commit ]
+
       - id: forbid-yml-extension
         name: forbid .yml extension
         entry: Use .yaml extension instead of .yml
@@ -35,21 +23,50 @@ repos:
         files: \.yml$
         stages: [ pre-commit ]
 
-      - id: mise-typecheck
-        name: mypy
-        entry: mise run typecheck
+      - id: actionlint
+        name: actionlint
+        entry: mise run actionlint
+        language: system
+        pass_filenames: false
+        files: ^\.github/workflows/.*\.ya?ml$
+        stages: [ pre-commit ]
+
+      - id: ruff-check
+        name: ruff-check
+        entry: mise run ruff-check
         language: system
         pass_filenames: false
         stages: [ pre-commit ]
 
-      - id: mise-licenseheaders
+      - id: ruff-format
+        name: ruff-format
+        entry: mise run ruff-format -- --check
+        language: system
+        pass_filenames: false
+        stages: [ pre-commit ]
+
+      - id: shellcheck
+        name: shellcheck
+        entry: mise shellcheck
+        language: system
+        pass_filenames: false
+        stages: [ pre-commit ]
+
+      - id: mypy
+        name: mypy
+        entry: mise run mypy
+        language: system
+        pass_filenames: false
+        stages: [ pre-commit ]
+
+      - id: licenseheaders
         name: licenseheaders
         entry: mise run licenseheaders
         language: system
         pass_filenames: false
         stages: [ pre-commit ]
 
-      - id: mise-audit
+      - id: pip-audit
         name: pip-audit
         entry: mise run audit
         language: system
