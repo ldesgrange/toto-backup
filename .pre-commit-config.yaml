@@ -23,6 +23,14 @@ repos:
         files: \.yml$
         stages: [ pre-commit ]
 
+      - id: actionlint
+        name: actionlint
+        entry: mise run actionlint
+        language: system
+        pass_filenames: false
+        files: ^\.github/workflows/.*\.ya?ml$
+        stages: [ pre-commit ]
+
       - id: ruff-check
         name: ruff-check
         entry: mise run ruff-check

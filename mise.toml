@@ -7,12 +7,13 @@ opencode = "latest"
 python = "3.14"
 pipx = "latest"
 pdm = "latest"
-pre-commit = "latest"
+pre-commit = { version = "latest", postinstall = "pre-commit install --install-hooks --hook-type pre-commit --hook-type pre-push" }
 shellcheck = "latest"
+actionlint = "latest"
+gh = "latest"
 
 [hooks]
 postinstall = [
-    "pre-commit install --hook-type pre-commit --hook-type pre-push",
     "pdm config lock.format pylock",
     "pdm install --plugins",
     "pdm install",
@@ -45,6 +46,11 @@ description = "Run shellcheck."
 hide = true
 run = "git grep -lz '^#!.*\\b\\(bash\\|sh\\)\\b' -- | xargs -0 -r shellcheck"
 
+[tasks.actionlint]
+description = "Run actionlint."
+hide = true
+run = "actionlint"
+
 [tasks.audit]
 description = "Check dependencies for vulnerabilities."
 run = "pip-audit"
@@ -66,4 +72,4 @@ run = "shiv --output-file toto-backup.pyz --console-script toto_backup ."
 
 [tasks.check]
 description = "Run formatter, linter, typechecker, and tests"
-depends = ["ruff-format", "ruff-check", "mypy", "shellcheck", "test"]
+depends = ["actionlint", "ruff-format", "ruff-check", "mypy", "shellcheck", "test"]
