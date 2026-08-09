@@ -69,4 +69,4 @@ run = "shiv --output-file toto-backup.pyz --console-script toto_backup ."
 
 [tasks.check]
 description = "Run formatter, linter, typechecker, and tests"
-depends = ["actionlint", "ruff-format", "ruff-check", "mypy", "shellcheck", "test"]
+depends = ["actionlint", "licenseheaders", "ruff-format", "ruff-check", "mypy", "shellcheck", "test"]

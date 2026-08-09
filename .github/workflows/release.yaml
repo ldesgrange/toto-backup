@@ -15,21 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v7
+      - name: Setup mise
+        uses: jdx/mise-action@v4
         with:
-          python-version: 3.14
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6
-        with:
-          version: latest
-
-      - name: Install dependencies
-        run: uv sync --locked
+          cache_key_prefix: mise-v1
 
       - name: Build
         run: |
-          uv run shiv --output-file toto-backup.pyz --console-script toto_backup .
+          mise run pyz
 
       - name: Create draft release
         uses: softprops/action-gh-release@v3
