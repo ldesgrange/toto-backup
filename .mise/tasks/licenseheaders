@@ -3,9 +3,9 @@ set -euo pipefail
 
 #MISE description="Validate and fix license headers in Python sources"
 
-AUTHOR=$(tomlq .project.authors[0].name pyproject.toml)
-PROJECT=$(tomlq .project.name pyproject.toml)
-REPO=$(tomlq .project.urls.repository pyproject.toml)
+AUTHOR=$(uv run tomlq .project.authors[0].name pyproject.toml)
+PROJECT=$(uv run tomlq .project.name pyproject.toml)
+REPO=$(uv run tomlq .project.urls.repository pyproject.toml)
 
-licenseheaders --dir src --current-year --owner "$AUTHOR" --projname "$PROJECT" --projurl "$REPO" --tmpl ./.licenseheader.j2 --ext .py
-licenseheaders --dir tests --current-year --owner "$AUTHOR" --projname "$PROJECT" --projurl "$REPO" --tmpl ./.licenseheader.j2 --ext .py
+uv run licenseheaders --dir src --current-year --owner "$AUTHOR" --projname "$PROJECT" --projurl "$REPO" --tmpl ./.licenseheader.j2 --ext .py
+uv run licenseheaders --dir tests --current-year --owner "$AUTHOR" --projname "$PROJECT" --projurl "$REPO" --tmpl ./.licenseheader.j2 --ext .py
