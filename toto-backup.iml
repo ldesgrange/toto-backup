@@ -6,10 +6,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.audit_cache" />
-      <excludeFolder url="file://$MODULE_DIR$/.pdm-build" />
-      <excludeFolder url="file://$MODULE_DIR$/.pdm-plugins" />
-      <excludeFolder url="file://$MODULE_DIR$/.pdm-plugins/bin" />
-      <excludeFolder url="file://$MODULE_DIR$/.pdm-plugins/lib" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />

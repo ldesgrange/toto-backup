@@ -8,9 +8,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  PDM_LOCKFILE: pylock.toml
-
 jobs:
   Check:
     runs-on: ubuntu-latest
@@ -25,12 +22,13 @@ jobs:
         with:
           python-version: 3.14
 
-      - name: Install PDM
-        run: python -m pip install "pdm==2.26.7"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: latest
 
       - name: Install dependencies
-        run: |
-          pdm sync -G dev
+        run: uv sync --locked
 
       - name: Install pre-commit
         run: python -m pip install pre-commit
@@ -40,20 +38,20 @@ jobs:
 
       - name: License headers
         run: |
-          pdm run bash ./.mise/tasks/licenseheaders
+          uv run bash ./.mise/tasks/licenseheaders
           git diff --exit-code -- src tests
 
       - name: Ruff format
-        run: pdm run ruff format --check src tests
+        run: uv run ruff format --check src tests
 
       - name: Ruff check
-        run: pdm run ruff check --no-fix src tests
+        run: uv run ruff check --no-fix src tests
 
       - name: Mypy
-        run: pdm run mypy src
+        run: uv run mypy src
 
       - name: Pip audit
-        run: pdm run pip-audit
+        run: uv run pip-audit
 
   Test:
     strategy:
@@ -73,15 +71,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install PDM
-        run: python -m pip install "pdm==2.26.7"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: latest
 
       - name: Install dependencies
-        run: |
-          pdm sync -G dev
+        run: uv sync --locked
 
       - name: Run tests
-        run: pdm run pytest
+        run: uv run pytest
 
   Build:
     needs:
@@ -99,16 +98,17 @@ jobs:
         with:
           python-version: 3.14
 
-      - name: Install PDM
-        run: python -m pip install "pdm==2.26.7"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: latest
 
       - name: Install dependencies
-        run: |
-          pdm sync -G dev
+        run: uv sync --locked
 
       - name: Build
         run: |
-          pdm run shiv --output-file toto-backup.pyz --console-script toto_backup .
+          uv run shiv --output-file toto-backup.pyz --console-script toto_backup .
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7

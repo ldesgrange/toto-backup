@@ -5,8 +5,7 @@ lockfile = true
 [tools]
 opencode = "latest"
 python = "3.14"
-pipx = "latest"
-pdm = "latest"
+uv = "latest"
 pre-commit = { version = "latest", postinstall = "pre-commit install --install-hooks --hook-type pre-commit --hook-type pre-push" }
 shellcheck = "latest"
 actionlint = "latest"
@@ -14,9 +13,7 @@ gh = "latest"
 
 [hooks]
 postinstall = [
-    "pdm config lock.format pylock",
-    "pdm install --plugins",
-    "pdm install",
+    "uv sync --locked",
 ]
 
 [env]
@@ -60,11 +57,11 @@ description = "Run app with a Yoto URL."
 usage = '''
 arg "<url>"
 '''
-run = 'pdm run toto_backup "${usage_url}"'
+run = 'uv run toto_backup "${usage_url}"'
 
 [tasks.build]
 description = "Build package artifacts."
-run = "pdm build"
+run = "uv build"
 
 [tasks.pyz]
 description = "Build zipapp"
