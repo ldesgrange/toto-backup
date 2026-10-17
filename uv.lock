@@ -1349,7 +1349,7 @@ wheels = [
 
 [[package]]
 name = "yq"
-version = "4.4.0"
+version = "4.4.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "argcomplete" },
@@ -1357,7 +1357,7 @@ dependencies = [
     { name = "tomlkit" },
     { name = "xmltodict" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b0/70/fe20ba54d325c408ae96e5e08a0f3c399b37f4b6c6d7f14f3c74dc6942b7/yq-4.4.0.tar.gz", hash = "sha256:bac64df0332bebf05cd6ff2bbd35e421a79bfe29d7c57ee021033a12cd8202cd", size = 52156, upload-time = "2026-09-27T21:09:38.872Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fd/be/ae37199d28a0a99eb79084f91da94f6e7e58550552361a2397c5032d5d37/yq-4.4.5.tar.gz", hash = "sha256:e17b21a927d04ae33f61a7284351b69b0a539bfb73b852a04a907b79bcd15de2", size = 54535, upload-time = "2026-10-11T02:20:56.748Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1a/19/2fe6339ca61300ce65fdf3b657137dbe1d133f023a2207d1952d10d38aa9/yq-4.4.0-py3-none-any.whl", hash = "sha256:a80c2df2988d33e72433c7b72f337190bd8c2a1d1cb4ba2aeb45e766f27d837c", size = 29861, upload-time = "2026-09-27T21:09:37.674Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/38/cca2b04f284c788ded19a9401e3049fd1f82d0467c1d6bd361915a77c063/yq-4.4.5-py3-none-any.whl", hash = "sha256:4e8b4e54979b26554c72a7e669009017a7fdd3fb00bbae0b26f82a86636c289f", size = 30255, upload-time = "2026-10-11T02:20:55.272Z" },
 ]
