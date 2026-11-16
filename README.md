@@ -62,5 +62,6 @@ Supported audio formats:
 
 - Update tools (`python`, `uv`…): `mise update --interactive --bump`
 - Update dependencies: `uv lock --upgrade`
+- Update a specific dependency: `uv lock --upgrade-package PACKAGE` (within the version constraints in `pyproject.toml`).
 - Update pre-commit hooks (frozen/pinned to commit SHA): `pre-commit autoupdate --freeze`
 - Validate updated hooks: `pre-commit run --all-files && pre-commit run --hook-stage pre-push --all-files`
